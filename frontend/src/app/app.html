@@ -2,6 +2,62 @@
 
 <p>Number of recipes: {{ recipes.length }}</p>
 
+
+<section>
+  <h2>Add Recipe</h2>
+
+  <form (ngSubmit)="addRecipe()">
+
+    <label>
+      Name:
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="newRecipe.name"
+        required>
+    </label>
+
+    <label>
+      Description:
+      <input
+        type="text"
+        name="description"
+        [(ngModel)]="newRecipe.description">
+    </label>
+
+    <label>
+      Preparation time:
+      <input
+        type="number"
+        name="preparationTime"
+        [(ngModel)]="newRecipe.preparationTime">
+    </label>
+
+    <label>
+      Difficulty:
+      <select
+        name="difficulty"
+        [(ngModel)]="newRecipe.difficulty">
+        <option value="EASY">Easy</option>
+        <option value="MEDIUM">Medium</option>
+        <option value="HARD">Hard</option>
+      </select>
+    </label>
+
+    <label>
+      Category:
+      <input
+        type="text"
+        name="category"
+        [(ngModel)]="newRecipe.category">
+    </label>
+
+    <button type="submit">Add Recipe</button>
+
+  </form>
+</section>
+
+
 @for (recipe of recipes; track recipe.id) {
   <h2>{{ recipe.name }}</h2>
   <p>{{ recipe.description }}</p>
