@@ -1,64 +1,83 @@
-<h1>Recipe Manager</h1>
+<main>
+  <h1>Recipe Manager</h1>
 
-<p>Number of recipes: {{ recipes.length }}</p>
+  <section>
+    <h2>Add Recipe</h2>
 
+    <form>
+      <label>
+        Name:
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="newRecipe.name"
+          required>
+      </label>
 
-<section>
-  <h2>Add Recipe</h2>
+      <label>
+        Description:
+        <input
+          type="text"
+          name="description"
+          [(ngModel)]="newRecipe.description">
+      </label>
 
-  <form (ngSubmit)="addRecipe()">
+      <label>
+        Preparation time:
+        <input
+          type="number"
+          name="preparationTime"
+          [(ngModel)]="newRecipe.preparationTime">
+      </label>
 
-    <label>
-      Name:
-      <input
-        type="text"
-        name="name"
-        [(ngModel)]="newRecipe.name"
-        required>
-    </label>
+      <label>
+        Difficulty:
+        <select
+          name="difficulty"
+          [(ngModel)]="newRecipe.difficulty">
+          <option value="EASY">Easy</option>
+          <option value="MEDIUM">Medium</option>
+          <option value="HARD">Hard</option>
+        </select>
+      </label>
 
-    <label>
-      Description:
-      <input
-        type="text"
-        name="description"
-        [(ngModel)]="newRecipe.description">
-    </label>
+      <label>
+        Category:
+        <input
+          type="text"
+          name="category"
+          [(ngModel)]="newRecipe.category">
+      </label>
 
-    <label>
-      Preparation time:
-      <input
-        type="number"
-        name="preparationTime"
-        [(ngModel)]="newRecipe.preparationTime">
-    </label>
+      <button
+        type="button"
+        (click)="addRecipe()">
+        Add Recipe
+      </button>
+      
+    </form>
+  </section>
 
-    <label>
-      Difficulty:
-      <select
-        name="difficulty"
-        [(ngModel)]="newRecipe.difficulty">
-        <option value="EASY">Easy</option>
-        <option value="MEDIUM">Medium</option>
-        <option value="HARD">Hard</option>
-      </select>
-    </label>
+  <section>
+    <h2>Recipes</h2>
 
-    <label>
-      Category:
-      <input
-        type="text"
-        name="category"
-        [(ngModel)]="newRecipe.category">
-    </label>
+    @for (recipe of recipes; track recipe.id) {
+      <article>
+        <h3>{{ recipe.name }}</h3>
 
-    <button type="submit">Add Recipe</button>
+        <p>{{ recipe.description }}</p>
+        <p>Preparation time: {{ recipe.preparationTime }} minutes</p>
+        <p>Difficulty: {{ recipe.difficulty }}</p>
+        <p>Category: {{ recipe.category }}</p>
 
-  </form>
-</section>
-
-
-@for (recipe of recipes; track recipe.id) {
-  <h2>{{ recipe.name }}</h2>
-  <p>{{ recipe.description }}</p>
-}
+        <button
+          type="button"
+          (click)="deleteRecipe(recipe.id)">
+          Delete
+        </button>
+      </article>
+    } @empty {
+      <p>No recipes yet.</p>
+    }
+  </section>
+</main>
