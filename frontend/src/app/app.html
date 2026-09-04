@@ -1,0 +1,8 @@
+<h1>Recipe Manager</h1>
+
+<p>Number of recipes: {{ recipes.length }}</p>
+
+@for (recipe of recipes; track recipe.id) {
+  <h2>{{ recipe.name }}</h2>
+  <p>{{ recipe.description }}</p>
+}
