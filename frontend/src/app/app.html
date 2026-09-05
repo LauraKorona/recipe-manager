@@ -26,11 +26,13 @@
       </label>
 
       <label>
-        Preparation time:
+        Preparation time (minutes):
         <input
           type="number"
           name="preparationTime"
-          [(ngModel)]="newRecipe.preparationTime">
+          [(ngModel)]="newRecipe.preparationTime"
+          min="1"
+          step="1">
           @if (newRecipe.preparationTime < 1) {
           <small>Preparation time must be at least 1 minute.</small>
 }
@@ -82,7 +84,11 @@
         <h3>{{ recipe.name }}</h3>
 
         <p>{{ recipe.description }}</p>
-        <p>Preparation time: {{ recipe.preparationTime }} minutes</p>
+        <p>
+          Preparation time:
+          {{ recipe.preparationTime }}
+          {{ recipe.preparationTime === 1 ? 'minute' : 'minutes' }}
+        </p>
         <p>Difficulty: {{ recipe.difficulty }}</p>
         <p>Category: {{ recipe.category }}</p>
 
