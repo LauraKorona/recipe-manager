@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity // bedzie mapowanie do bazy danych
 public class Recipe {
@@ -12,10 +14,16 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // baza ma sama generowac kolejne id
     private Long id;
 
+    @NotBlank
     private String name;
+
     private String description;
+
+    @Min(1)
     private Integer preparationTime;
+
     private String difficulty;
+    
     private String category;
 
     public Recipe() {

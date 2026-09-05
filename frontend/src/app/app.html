@@ -12,6 +12,9 @@
           name="name"
           [(ngModel)]="newRecipe.name"
           required>
+          @if (newRecipe.name.trim().length === 0) {
+            <small>Name is required.</small>
+          }
       </label>
 
       <label>
@@ -28,6 +31,9 @@
           type="number"
           name="preparationTime"
           [(ngModel)]="newRecipe.preparationTime">
+          @if (newRecipe.preparationTime < 1) {
+          <small>Preparation time must be at least 1 minute.</small>
+}
       </label>
 
       <label>
@@ -49,11 +55,21 @@
           [(ngModel)]="newRecipe.category">
       </label>
 
-      <button
-        type="button"
-        (click)="addRecipe()">
-        Add Recipe
-      </button>
+      @if (editingRecipeId === null) {
+        <button
+          type="button"
+          (click)="addRecipe()"
+          [disabled]="!isRecipeValid()">
+          Add Recipe
+        </button>
+      } @else {
+        <button
+          type="button"
+          (click)="updateRecipe()"
+          [disabled]="!isRecipeValid()">
+          Save Changes
+        </button>
+      }
       
     </form>
   </section>
@@ -69,6 +85,12 @@
         <p>Preparation time: {{ recipe.preparationTime }} minutes</p>
         <p>Difficulty: {{ recipe.difficulty }}</p>
         <p>Category: {{ recipe.category }}</p>
+
+        <button
+          type="button"
+          (click)="editRecipe(recipe)">
+          Edit
+        </button>
 
         <button
           type="button"

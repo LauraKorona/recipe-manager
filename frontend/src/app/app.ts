@@ -12,6 +12,7 @@ import { RecipeService } from './services/recipe.service';
 export class App implements OnInit {
 
   recipes: Recipe[] = [];
+
   newRecipe: Recipe = {
     name: '',
     description: '',
@@ -19,6 +20,8 @@ export class App implements OnInit {
     difficulty: 'EASY',
     category: ''
   };
+
+  editingRecipeId: number | null = null;
 
   constructor(
     private recipeService: RecipeService,
@@ -76,5 +79,53 @@ export class App implements OnInit {
         console.error('Error deleting recipe:', error);
       }
     });
+  }
+
+  editRecipe(recipe: Recipe): void {
+    if (recipe.id === undefined) {
+      return;
+    }
+
+    this.editingRecipeId = recipe.id;
+
+    this.newRecipe = {
+      ...recipe
+    };
+  }
+
+  updateRecipe(): void {
+    if (this.editingRecipeId === null) {
+      return;
+    }
+
+    const id = this.editingRecipeId;
+
+    this.recipeService.updateRecipe(id, this.newRecipe).subscribe({
+      next: (updatedRecipe) => {
+        this.recipes = this.recipes.map(recipe =>
+          recipe.id === id ? updatedRecipe : recipe
+        );
+
+        this.editingRecipeId = null;
+
+        this.newRecipe = {
+          name: '',
+          description: '',
+          preparationTime: 0,
+          difficulty: 'EASY',
+          category: ''
+        };
+
+        this.cdr.markForCheck();
+      },
+      error: (error) => {
+        console.error('Error updating recipe:', error);
+      }
+    });
+  }
+
+  isRecipeValid(): boolean {
+    return this.newRecipe.name.trim().length > 0
+      && this.newRecipe.preparationTime >= 1;
   }
 }
