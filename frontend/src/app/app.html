@@ -1,8 +1,14 @@
 <main>
   <h1>Recipe Manager</h1>
-
+  @if (message) {
+    <p class="success-message">
+      {{ message }}
+    </p>
+  }
   <section>
-    <h2>Add Recipe</h2>
+    <h2>
+      {{ editingRecipeId === null ? 'Add Recipe' : 'Edit Recipe' }}
+    </h2>
 
     <form>
       <label>
@@ -70,6 +76,12 @@
           (click)="updateRecipe()"
           [disabled]="!isRecipeValid()">
           Save Changes
+        </button>
+
+        <button
+          type="button"
+          (click)="cancelEdit()">
+          Cancel
         </button>
       }
       

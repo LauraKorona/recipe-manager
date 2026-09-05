@@ -23,6 +23,8 @@ export class App implements OnInit {
 
   editingRecipeId: number | null = null;
 
+  message: string = '';
+
   constructor(
     private recipeService: RecipeService,
     private cdr: ChangeDetectorRef
@@ -57,6 +59,8 @@ export class App implements OnInit {
           category: ''
         };
 
+        this.message = 'Recipe added successfully.';
+
         this.cdr.markForCheck();
       },
       error: (error) => {
@@ -73,6 +77,9 @@ export class App implements OnInit {
     this.recipeService.deleteRecipe(id).subscribe({
       next: () => {
         this.recipes = this.recipes.filter(recipe => recipe.id !== id);
+
+        this.message = 'Recipe deleted successfully.';
+        
         this.cdr.markForCheck();
       },
       error: (error) => {
@@ -115,6 +122,8 @@ export class App implements OnInit {
           difficulty: 'EASY',
           category: ''
         };
+        
+        this.message = 'Recipe updated successfully.';
 
         this.cdr.markForCheck();
       },
@@ -127,5 +136,17 @@ export class App implements OnInit {
   isRecipeValid(): boolean {
     return this.newRecipe.name.trim().length > 0
       && this.newRecipe.preparationTime >= 1;
+  }
+
+  cancelEdit(): void {
+    this.editingRecipeId = null;
+
+    this.newRecipe = {
+      name: '',
+      description: '',
+      preparationTime: 0,
+      difficulty: 'EASY',
+      category: ''
+    };
   }
 }
