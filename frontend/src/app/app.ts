@@ -61,7 +61,7 @@ export class App implements OnInit {
 
         this.message = 'Recipe added successfully.';
 
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error adding recipe:', error);
@@ -80,7 +80,7 @@ export class App implements OnInit {
 
         this.message = 'Recipe deleted successfully.';
         
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error deleting recipe:', error);
@@ -125,7 +125,7 @@ export class App implements OnInit {
         
         this.message = 'Recipe updated successfully.';
 
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error updating recipe:', error);
