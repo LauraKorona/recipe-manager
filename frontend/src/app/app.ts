@@ -13,6 +13,12 @@ export class App implements OnInit {
 
   recipes: Recipe[] = [];
 
+  difficulties = [
+    {value: 'EASY', label: 'Easy'},
+    {value: 'MEDIUM', label: 'Medium'},
+    {value: 'HARD', label: 'Hard'}
+  ];
+
   newRecipe: Recipe = {
     name: '',
     description: '',
@@ -148,5 +154,12 @@ export class App implements OnInit {
       difficulty: 'EASY',
       category: ''
     };
+  }
+
+  filterRecipes(difficulty?: string): void {
+    this.recipeService.getRecipes(difficulty).subscribe( recipes => {
+      this.recipes = recipes;
+      this.cdr.detectChanges();
+    });
   }
 }

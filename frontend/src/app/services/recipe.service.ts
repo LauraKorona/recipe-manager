@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { catchError, Observable } from 'rxjs';
 
 import { Recipe } from '../models/recipe';
 
@@ -9,13 +9,20 @@ import { Recipe } from '../models/recipe';
 })
 export class RecipeService {
 
-  private apiUrl = 'http://localhost:8080/api/recipes';
+  private apiUrl = 'http://localhost:8081/api/recipes';
 
   constructor(private http: HttpClient) {
   }
 
-  getRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(this.apiUrl);
+  getRecipes(difficulty? : string): Observable<Recipe[]>
+  {
+    if (difficulty != null) difficulty = difficulty.trim();
+    
+    const options = difficulty
+    ? {params: new HttpParams().set('difficulty', difficulty)}
+    : {};
+
+    return this.http.get<Recipe[]>(this.apiUrl, options);
   }
 
   addRecipe(recipe: Recipe): Observable<Recipe> {

@@ -109,3 +109,32 @@ small {
   border: 1px solid #4f8a55;
   border-radius: 6px;
 }
+
+.filters {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
+  background-color: #fffef5;
+  border: 1px solid #d8d8b8;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter-group select {
+  padding: 10px;
+  min-width: 120px;
+  border: 1px solid #7a9b76;
+  border-radius: 10px;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: #3d5a40;
+}

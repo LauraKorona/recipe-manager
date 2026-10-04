@@ -1,9 +1,6 @@
 package com.example.recipeapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
@@ -22,7 +19,8 @@ public class Recipe {
     @Min(1)
     private Integer preparationTime;
 
-    private String difficulty;
+    @Enumerated(EnumType.STRING) // w bazie zapisuje sie EASY zamiast 0
+    private Difficulty difficulty;
     
     private String category;
 
@@ -61,11 +59,11 @@ public class Recipe {
         this.preparationTime = preparationTime;
     }
 
-    public String getDifficulty() {
+    public Difficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
     }
 
